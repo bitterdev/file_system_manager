@@ -1,0 +1,41 @@
+Version 1.0.0
+==================================================
+- Integrate new support system dialog + clean up code
+
+Version 0.9.7
+==================================================
+- Fix issue in fancytree dir method
+- short directory name in create folder dialog when base name is greater then 40 characters
+
+Version 0.9.6
+==================================================
+- Code improvements
+
+Version 0.9.5
+==================================================
+- Change app icon
+
+Version 0.9.4
+==================================================
+- Add dependency check to prevent installations on Windows OS
+- Add a config value
+
+Version 0.9.3
+==================================================
+- Fix version 8 problem
+
+Version 0.9.2
+==================================================
+- Remove base path limiation
+- Add current path to the view
+- Add basename to dialogs.
+- Change popup size of editor window to 100%
+
+Version 0.9.1
+==================================================
+- Changed marketplace name
+- Changed task permission names
+
+Version 0.9.0
+==================================================
+- Submitted to PRB
