@@ -1,0 +1,18 @@
+{
+  "packageHandle": "file_manager",
+  "packageFile": "build/file_manager.zip",
+  "title": "File System Manager",
+  "supportHostedOffsite": true,
+  "supportHostedOffsiteUrl": "https://www.bitter.de/support",
+  "singlePrice": 35,
+  "skillLevel": "Beginner",
+  "keywords": "file, manager, files, browse, browser, explore, explorer, copy, paste, move, clean, clear, edit, remove, delete, rename, upload, uploads, download, downloads, manage, bitter, fabian bitter, filemanager, file manager, fabianbitter, edit files, edit file, move file, move files, move folder, move folders, move dir, move dirs, move directories, move directory, copy file, copy files, copy folder, copy folders, copy dir, copy dirs, copy directories, copy directory, copy, move, delete, delete files, delete file, delete folder, delete folders, delete directories, delete directory, delete dir, delete dirs, file system manager, system file manager",
+  "shortDescription": "Manage your entire file system within your concrete5 website. You can navigate, copy, move, edit directories and files and much more.",
+  "categories": [16, 1273, 50],
+  "supportPlan": 12,
+  "screenshots": [
+      "https://static.bitter.de:9000/public/1716/0727/4957/1.jpg",
+      "https://static.bitter.de:9000/public/1916/0727/4955/2.jpg",
+      "https://static.bitter.de:9000/public/1116/0727/4957/3.jpg"
+  ],
+}
