@@ -1,14 +1,6 @@
 <?php
 
-/**
- * @project:   File Manager
- *
- * @author     Fabian Bitter (fabian@bitter.de)
- * @copyright  (C) 2020 Fabian Bitter (www.bitter.de)
- * @version    X.X.X
- */
-
-namespace Concrete\Package\FileManager\Controller\Dialog\Support;
+namespace Concrete\Package\FileSystemManager\Controller\Dialog\Support;
 
 use Concrete\Controller\Backend\UserInterface;
 use Concrete\Core\Application\EditResponse;

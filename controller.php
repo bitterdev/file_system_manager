@@ -1,47 +1,39 @@
 <?php
 
-/**
- * @project:   File Manager
- *
- * @author     Fabian Bitter (fabian@bitter.de)
- * @copyright  (C) 2020 Fabian Bitter (www.bitter.de)
- * @version    X.X.X
- */
-
-namespace Concrete\Package\FileManager;
+namespace Concrete\Package\FileSystemManager;
 
 use Concrete\Core\Package\Package;
 use Concrete\Core\Page\Page;
 use Concrete\Core\Page\Single;
 use Concrete\Core\Permission\Key\Key;
-use Concrete\Core\User\Group\Group;
 use Concrete\Core\Permission\Access\Entity\GroupEntity;
 use Concrete\Core\Permission\Access\Access;
-use Bitter\FileManager\Provider\ServiceProvider;
+use Bitter\FileSystemManager\Provider\ServiceProvider;
+use Concrete\Core\User\Group\GroupRepository;
 
 class Controller extends Package
 {
-
-    protected $pkgHandle = 'file_manager';
-    protected $pkgVersion = '1.0.0';
-    protected $appVersionRequired = '8.0.0';
+    protected string $pkgHandle = 'file_system_manager';
+    protected string $pkgVersion = '1.0.1';
+    protected $appVersionRequired = '9.0.0';
     protected $pkgAutoloaderRegistries = [
-        'src/Bitter/FileManager' => 'Bitter\FileManager',
+        'src/Bitter/FileSystemManager' => 'Bitter\FileSystemManager',
     ];
 
-    public function getPackageDescription()
+    public function getPackageDescription(): string
     {
-        return t('Manage your entire file system within your concrete5 website. You can navigate, copy, move, edit directories and files and much more.');
+        return t('A powerful file system manager fully integrated into the Concrete CMS dashboard—no FTP client needed.');
     }
 
-    public function getPackageName()
+    public function getPackageName(): string
     {
-        return t('File Sytem Manager');
+        return t('File System Manager');
     }
 
     public function on_start()
     {
         /** @var ServiceProvider $serviceProvider */
+        /** @noinspection PhpUnhandledExceptionInspection */
         $serviceProvider = $this->app->make(ServiceProvider::class);
         $serviceProvider->register();
     }
@@ -49,11 +41,8 @@ class Controller extends Package
     public function testForInstall($testForAlreadyInstalled = true)
     {
         $errors = parent::testForInstall($testForAlreadyInstalled);
+        /** @noinspection PhpUnhandledExceptionInspection */
         $errors = is_object($errors) ? $errors : $this->app->make('error');
-
-        /*
-         * Dependency Check
-         */
 
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             $errors->add(t("Currently this add-on is not supporting Microsoft Windows OS."));
@@ -64,27 +53,18 @@ class Controller extends Package
 
     public function install()
     {
-
         $pkg = parent::install();
 
-        /*
-         * Install the dashboard page
-         */
-
-        $singlePage = Single::add("/dashboard/file_manager", $pkg);
+        $singlePage = Single::add("/dashboard/file_system_manager", $pkg);
 
         /** @var Page $singlePage */
         $singlePage->update([
-            "cName" => t("File Sytem Manager")
+            "cName" => t("File System Manager")
         ]);
-
-        /*
-         * Install the task permissions
-         */
 
         $taskPermissions = [
             [
-                "handle" => "access_file_manager",
+                "handle" => "access_file_system_manager",
                 "name" => t("Access File System (File System Manager)")
             ],
             [
@@ -121,16 +101,17 @@ class Controller extends Package
             ]
         ];
 
-        $group = Group::getByID(ADMIN_GROUP_ID);
+        /** @var GroupRepository $repository */
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $repository = $this->app->make(GroupRepository::class);
+        $group = $repository->getGroupByID(ADMIN_GROUP_ID);
 
         $adminGroupEntity = GroupEntity::getOrCreate($group);
 
         foreach ($taskPermissions as $taskPermission) {
-            /** @var Key $pk */
             $pk = Key::add('admin', $taskPermission["handle"], $taskPermission["name"], "", false, false, $pkg);
 
             $pa = Access::create($pk);
-            /** @noinspection PhpParamsInspection */
             $pa->addListItem($adminGroupEntity);
             $pt = $pk->getPermissionAssignmentObject();
             $pt->assignPermissionAccess($pa);
